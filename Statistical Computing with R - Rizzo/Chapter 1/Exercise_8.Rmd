@@ -1,0 +1,60 @@
+---
+title: "Exercise 8"
+author: "Saverio PIetro Capra"
+date: "2025-01-23"
+output: html_document
+---
+
+```{r pressure, echo=TRUE}
+library(datasets)
+data(iris)
+```
+
+## Example 1.12
+
+In this example we display several versions of a scatterplot of the iris sepal width and sepal length data, using the `ggplot2` library contained in the `tidyverse` package.
+
+```{r pressure, echo=TRUE}
+ggplot(data = iris, aes(x=Sepal.Length, y = Sepal.Width)) + geom_point()
+```
+
+Here we have, respectively specified:
+
+-   The data we're going to use: "iris"
+
+-   A mapping for our variables `Sepal.length` and `Sepal.Width` to a visual object (`geom`)
+
+Now, in order to display different colors and symbols for the 3 different species of iris, we can write the following code:
+
+```{r pressure, echo=TRUE}
+ggplot(data = iris, aes(x=Sepal.Length, y = Sepal.Width, 
+                        color = Species, shape = Species)) + geom_point(size = 2)
+```
+
+## Example 1.13
+
+Now, let's use the `ggplot2` library to display parallel boxplots and violin plots for the iris sepal length measurement by species.
+
+```{r pressure, echo=FALSE}
+ggplot(iris, aes(Species, Sepal.Length))+geom_boxplot()
+ggplot(iris, aes(Species, Sepal.Length)) + geom_violin()
+```
+
+If we want to display horizontal plots, we just need to add `coord_flip`:
+
+```{r pressure, echo=FALSE}
+ggplot(iris, aes(Species, Sepal.Length))+geom_boxplot()+coord_flip()
+ggplot(iris, aes(Species, Sepal.Length)) + geom_violin()+coord_flip()
+```
+
+## Example 1.14
+
+Now, we refer to the `mpg` data contained in `ggplot2`. The data records fuel economy data from 1999 and 2008 for 38 models of cars.
+
+Our goal is to plot highway mpg (`hwy`) as a function of engine size (displacement `displ`) for each `class` of vehicle, and display all of these plots in an array.
+
+```{r pressure, echo=FALSE}
+ggplot(mpg, aes(displ, hwy))+
+  geom_point() +
+  facet_wrap(~ class)
+```
